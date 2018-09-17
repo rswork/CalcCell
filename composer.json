@@ -1,0 +1,17 @@
+{
+    "name": "rswork/calc-cell",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rivsen Tan",
+            "email": "rivsen1003@gmail.com"
+        }
+    ],
+    "require": {
+        "rswork/exception": "~0.1"
+    },
+    "autoload": {
+        "psr-4": { "Rswork\\Component\\CalcCell\\": "src" }
+    }
+}
