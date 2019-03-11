@@ -137,6 +137,51 @@ class CalcCell
         return $this;
     }
 
+    public function append($arrayColumn, $item, $key = null)
+    {
+        if (!isset($this->structure[$arrayColumn]) || $this->structure[$arrayColumn] !== self::TYPE_ARRAY) {
+            throw new BaseException('invalid Calc Cell Column: '.$arrayColumn, BaseException::INVALID_ARGUMENT);
+        }
+
+        $value = $this->get($arrayColumn) ?: [];
+
+        if (!$key) {
+            $value[] = $item;
+        } else {
+            $value[$key] = $item;
+        }
+
+        $this->set($arrayColumn, $value);
+
+        return $this;
+    }
+
+    public function uniqueAppend($arrayColumn, $item, $key = null, $override = false)
+    {
+        if (!isset($this->structure[$arrayColumn]) || $this->structure[$arrayColumn] !== self::TYPE_ARRAY) {
+            throw new BaseException('invalid Calc Cell Column: '.$arrayColumn, BaseException::INVALID_ARGUMENT);
+        }
+
+        $value = $this->get($arrayColumn) ?: [];
+        $needSet = false;
+
+        if (!$key) {
+            if (!in_array($item, $value)) {
+                $value[] = $item;
+                $needSet = true;
+            }
+        } elseif ($override || !isset($value[$key])) {
+            $value[$key] = $item;
+            $needSet = true;
+        }
+
+        if ($needSet) {
+            $this->set($arrayColumn, $value);
+        }
+
+        return $this;
+    }
+
     public function refCallback($column, CalcCell $ref, $refColumn, callable $callback)
     {
         if (!isset($this->refs[$column])) {
