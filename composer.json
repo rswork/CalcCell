@@ -12,6 +12,6 @@
         "rswork/exception": "~0.1"
     },
     "autoload": {
-        "psr-4": { "Rswork\\Component\\CalcCell\\": "src" }
+        "psr-4": { "Rswork\\Component\\": "src" }
     }
 }
